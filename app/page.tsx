@@ -188,7 +188,7 @@ export default function LandingPage() {
       {/* ─── Nav ─── */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-border">
         <div className="max-w-[1200px] mx-auto px-6 h-14 flex items-center justify-between">
-          <a href="/" className="font-display text-2xl tracking-display text-ink">
+          <a href="/" className="font-brand text-2xl font-bold tracking-tight text-ink">
             RUNR
           </a>
           <div className="flex items-center gap-8">
@@ -212,7 +212,7 @@ export default function LandingPage() {
       <section className="min-h-screen flex flex-col justify-center items-center px-6 pt-14">
         <div className="max-w-[1200px] w-full">
           <motion.h1
-            className="font-display text-[clamp(64px,12vw,140px)] leading-[0.9] tracking-display text-ink"
+            className="font-brand font-bold text-[clamp(64px,12vw,140px)] leading-[0.9] tracking-tight text-ink"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: 'easeOut' as const }}
@@ -220,7 +220,7 @@ export default function LandingPage() {
             DO LESS.
           </motion.h1>
           <motion.h1
-            className="font-display text-[clamp(64px,12vw,140px)] leading-[0.9] tracking-display text-ink"
+            className="font-brand font-bold text-[clamp(64px,12vw,140px)] leading-[0.9] tracking-tight text-ink"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.08, ease: 'easeOut' as const }}

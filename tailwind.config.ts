@@ -17,6 +17,7 @@ const config: Config = {
       },
       fontFamily: {
         display: ['Bebas Neue', 'sans-serif'],
+        brand: ['Space Grotesk', 'sans-serif'],
         mono: ['DM Mono', 'monospace'],
       },
       spacing: {
