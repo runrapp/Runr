@@ -212,7 +212,7 @@ export default function LandingPage() {
       <section className="min-h-screen flex flex-col justify-center items-center px-6 pt-14">
         <div className="max-w-[1200px] w-full">
           <motion.h1
-            className="font-brand font-bold text-[clamp(64px,12vw,140px)] leading-[0.9] tracking-tight text-ink"
+            className="font-brand font-bold italic text-[clamp(64px,12vw,140px)] leading-[0.9] tracking-tight text-ink"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: 'easeOut' as const }}
