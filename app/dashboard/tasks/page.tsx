@@ -134,7 +134,7 @@ export default function TasksPage() {
             initial={{ x: 400, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: 400, opacity: 0 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
+            transition={{ duration: 0.25, ease: 'easeOut' as const }}
             className="fixed right-0 top-14 bottom-0 w-[400px] border-l border-border bg-white z-20 overflow-y-auto"
           >
             <div className="p-6">

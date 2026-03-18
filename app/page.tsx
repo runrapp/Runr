@@ -9,7 +9,7 @@ const fadeUp = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.07, duration: 0.4, ease: 'easeOut' },
+    transition: { delay: i * 0.07, duration: 0.4, ease: 'easeOut' as const },
   }),
 }
 
@@ -215,7 +215,7 @@ export default function LandingPage() {
             className="font-display text-[clamp(64px,12vw,140px)] leading-[0.9] tracking-display text-ink"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: 'easeOut' }}
+            transition={{ duration: 0.4, ease: 'easeOut' as const }}
           >
             DO LESS.
           </motion.h1>
@@ -223,7 +223,7 @@ export default function LandingPage() {
             className="font-display text-[clamp(64px,12vw,140px)] leading-[0.9] tracking-display text-ink"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.08, ease: 'easeOut' }}
+            transition={{ duration: 0.4, delay: 0.08, ease: 'easeOut' as const }}
           >
             RUN MORE.
           </motion.h1>
@@ -231,7 +231,7 @@ export default function LandingPage() {
             className="mt-8 font-mono text-sm text-muted max-w-md"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.18, ease: 'easeOut' }}
+            transition={{ duration: 0.4, delay: 0.18, ease: 'easeOut' as const }}
           >
             Your AI agent. Always on.
           </motion.p>
@@ -239,7 +239,7 @@ export default function LandingPage() {
             className="mt-10 flex gap-4"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.26, ease: 'easeOut' }}
+            transition={{ duration: 0.4, delay: 0.26, ease: 'easeOut' as const }}
           >
             <a
               href="/dashboard"
@@ -507,7 +507,7 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.4, ease: 'easeOut' }}
+            transition={{ duration: 0.4, ease: 'easeOut' as const }}
             className="font-display text-[clamp(48px,8vw,100px)] leading-[0.9] tracking-display text-ink mb-12"
           >
             READY TO RUN?
@@ -516,7 +516,7 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.4, delay: 0.1, ease: 'easeOut' }}
+            transition={{ duration: 0.4, delay: 0.1, ease: 'easeOut' as const }}
             className="flex gap-0 max-w-lg"
             onSubmit={(e) => {
               e.preventDefault()
