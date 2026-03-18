@@ -64,7 +64,7 @@ export async function updateTask(
       duration_ms: data.duration || null,
       completed_at: new Date().toISOString(),
     })
-    .where('id', taskId)
+    .eq('id', taskId)
     .select()
     .single()
 
