@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&display=swap');
+
+:root {
+  --ink: #0F0F0F;
+  --white: #FAFAFA;
+  --surface: #F2F0EB;
+  --border: #E0DDD6;
+  --muted: #7A7570;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Mono', monospace;
+  font-weight: 300;
+  background-color: var(--white);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+::selection {
+  background-color: var(--ink);
+  color: var(--white);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* Input reset */
+input, textarea, button {
+  font-family: 'DM Mono', monospace;
+  font-weight: 400;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+}
+
+/* Grid system — 8px base */
+.grid-8 {
+  gap: 8px;
+}
+
+.grid-16 {
+  gap: 16px;
+}
+
+.grid-24 {
+  gap: 24px;
+}
+
+.grid-32 {
+  gap: 32px;
+}
+
+/* Marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+/* Stagger children animation */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+/* Status dot */
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-dot.active {
+  background-color: var(--ink);
+}
+
+.status-dot.idle {
+  background-color: var(--muted);
+}
+
+/* Typing cursor */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.typing-cursor::after {
+  content: '▊';
+  animation: blink 1s step-end infinite;
+  color: var(--ink);
+  font-size: 14px;
+  margin-left: 2px;
+}
