@@ -159,7 +159,7 @@ const pricing = [
     ],
     inverted: true,
     cta: 'Get started',
-    href: 'https://runr.lemonsqueezy.com/checkout/buy/ac2a9b22-66a4-4a89-9777-16299cbdb1c5',
+    href: 'https://runr.lemonsqueezy.com/checkout/buy/f6aff73d-726c-4962-8410-3445ec3994f7',
   },
   {
     name: 'Custom',
