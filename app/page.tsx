@@ -218,10 +218,10 @@ export default function LandingPage() {
               Get started
             </a>
             <a
-              href="#how-it-works"
+              href="/demo"
               className="font-mono text-xs uppercase tracking-[2px] border border-ink text-ink px-6 py-3 hover:-translate-y-[2px] hover:bg-ink hover:text-white transition-all duration-150 inline-block text-center"
             >
-              See how it works
+              Try demo
             </a>
           </motion.div>
         </div>
@@ -458,6 +458,11 @@ export default function LandingPage() {
           <div className="border-t border-border py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
             <span className="font-mono text-[11px] text-muted">&copy; {new Date().getFullYear()} Runr. All rights reserved.</span>
             <div className="flex gap-4">
+              <a href="https://x.com/runrdotsite" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-ink transition-colors" aria-label="X / Twitter">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
               <a href="mailto:support@runr.site" className="text-muted hover:text-ink transition-colors" aria-label="Email">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="2" y="4" width="20" height="16" rx="2" />

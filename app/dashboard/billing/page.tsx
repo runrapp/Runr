@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
+import { createClient } from '@/lib/supabase/client'
 
 const PLANS = {
   starter: {
@@ -23,9 +24,23 @@ function BillingContent() {
   const searchParams = useSearchParams()
   const planParam = searchParams.get('plan') as 'starter' | 'pro' | null
   const [currentSub, setCurrentSub] = useState<string | null>(null)
+  const [userEmail, setUserEmail] = useState<string | null>(null)
 
   useEffect(() => {
-    setCurrentSub(localStorage.getItem('runr_subscription'))
+    // Get user email for checkout
+    const supabase = createClient()
+    supabase.auth.getUser().then(({ data }) => {
+      if (data.user?.email) setUserEmail(data.user.email)
+    })
+    // Check subscription
+    fetch('/api/subscription')
+      .then(r => r.json())
+      .then(data => {
+        if (data.subscribed) setCurrentSub(data.plan)
+      })
+      .catch(() => {
+        setCurrentSub(localStorage.getItem('runr_subscription'))
+      })
   }, [])
 
   const fadeUp = {
@@ -64,7 +79,7 @@ function BillingContent() {
                   ● Current plan
                 </span>
               ) : (
-                <a href={plan.checkout}
+                <a href={`${plan.checkout}${userEmail ? `?checkout[custom][email]=${encodeURIComponent(userEmail)}&checkout[email]=${encodeURIComponent(userEmail)}` : ''}`}
                   className="font-mono text-xs uppercase tracking-[2px] inline-block px-6 py-3 border border-ink text-ink hover:bg-ink hover:text-white transition-all duration-150 hover:-translate-y-[2px]">
                   Subscribe — {plan.price}/mo
                 </a>

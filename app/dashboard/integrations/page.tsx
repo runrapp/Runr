@@ -97,18 +97,18 @@ function IntegrationsContent() {
       window.history.replaceState({}, '', '/dashboard/integrations')
     }
 
-    // Handle subscription success from Stripe redirect
-    const subscribed = searchParams.get('subscribed')
-    if (subscribed === 'starter' || subscribed === 'pro') {
-      localStorage.setItem('runr_subscription', subscribed)
-      setHasSubscription(true)
-      setToast({ type: 'success', text: `${subscribed.charAt(0).toUpperCase() + subscribed.slice(1)} plan activated! You can now connect integrations.` })
-      window.history.replaceState({}, '', '/dashboard/integrations')
-    }
-
-    // Check subscription
-    const sub = localStorage.getItem('runr_subscription')
-    setHasSubscription(sub === 'starter' || sub === 'pro')
+    // Check subscription from API (real DB check)
+    fetch('/api/subscription')
+      .then(r => r.json())
+      .then(data => {
+        setHasSubscription(data.subscribed === true)
+        if (data.subscribed) localStorage.setItem('runr_subscription', data.plan)
+      })
+      .catch(() => {
+        // Fallback to localStorage
+        const sub = localStorage.getItem('runr_subscription')
+        setHasSubscription(sub === 'starter' || sub === 'pro')
+      })
 
     // Restore from localStorage
     const tgData = localStorage.getItem('runr_telegram_bot')
