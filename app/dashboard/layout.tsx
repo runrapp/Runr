@@ -8,6 +8,7 @@ import { createClient } from '@/lib/supabase/client'
 const navItems = [
   { href: '/dashboard/integrations', label: 'Integrations' },
   { href: '/dashboard/skills', label: 'Skills' },
+  { href: '/dashboard/billing', label: 'Billing' },
 ]
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {

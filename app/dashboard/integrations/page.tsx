@@ -313,10 +313,10 @@ function IntegrationsContent() {
                 <button
                   onClick={() => {
                     if (item.id === 'gmail') {
-                      if (!hasSubscription) { setToast({ type: 'error', text: 'Subscription needed.' }); window.location.href = '/#pricing'; return }
+                      if (!hasSubscription) { setToast({ type: 'error', text: 'Subscription needed.' }); window.location.href = '/dashboard/billing'; return }
                       window.location.href = '/api/gmail/connect'
                     } else if (item.id === 'calendar') {
-                      if (!hasSubscription) { setToast({ type: 'error', text: 'Subscription needed.' }); window.location.href = '/#pricing'; return }
+                      if (!hasSubscription) { setToast({ type: 'error', text: 'Subscription needed.' }); window.location.href = '/dashboard/billing'; return }
                       window.location.href = '/api/calendar/connect'
                     } else if (item.id === 'telegram') setModal('telegram')
                     else if (item.id === 'discord') setModal('discord')
@@ -379,7 +379,7 @@ function IntegrationsContent() {
                   {loading ? 'Connecting...' : 'Connect'}
                 </button>
               ) : (
-                <Link href="https://runr.lemonsqueezy.com/checkout/buy/ac2a9b22-66a4-4a89-9777-16299cbdb1c5"
+                <Link href="/dashboard/billing"
                   className="font-mono text-xs uppercase tracking-[2px] bg-muted/80 text-white px-4 py-2 hover:-translate-y-[2px] transition-transform duration-150 text-center">
                   Subscription needed
                 </Link>
@@ -456,7 +456,7 @@ function IntegrationsContent() {
                   {loading ? 'Connecting...' : 'Connect'}
                 </button>
               ) : (
-                <Link href="https://runr.lemonsqueezy.com/checkout/buy/ac2a9b22-66a4-4a89-9777-16299cbdb1c5"
+                <Link href="/dashboard/billing"
                   className="font-mono text-xs uppercase tracking-[2px] bg-muted/80 text-white px-4 py-2 hover:-translate-y-[2px] transition-transform duration-150 text-center">
                   Subscription needed
                 </Link>
