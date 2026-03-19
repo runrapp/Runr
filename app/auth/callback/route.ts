@@ -1,11 +1,11 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
-import { NextResponse, type NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url)
+  const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
-  const next = searchParams.get('next') ?? '/dashboard/integrations'
+  const type = searchParams.get('type') // signup, recovery, etc.
 
   if (code) {
     const cookieStore = await cookies()
@@ -14,15 +14,30 @@ export async function GET(request: NextRequest) {
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       {
         cookies: {
-          getAll() { return cookieStore.getAll() },
-          setAll(cookiesToSet: { name: string; value: string; options?: Record<string, unknown> }[]) {
-            try { cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options as never)) } catch {}
+          getAll() {
+            return cookieStore.getAll()
+          },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value, options }) => {
+              cookieStore.set(name, value, options)
+            })
           },
         },
       }
     )
+
     const { error } = await supabase.auth.exchangeCodeForSession(code)
-    if (!error) return NextResponse.redirect(new URL(next, request.url))
+
+    if (!error) {
+      // Email confirmation → show confirmed page
+      if (type === 'signup' || type === 'email') {
+        return NextResponse.redirect(`${origin}/auth/confirmed`)
+      }
+      // OAuth login or other → go to dashboard
+      return NextResponse.redirect(`${origin}/dashboard/integrations`)
+    }
   }
-  return NextResponse.redirect(new URL('/login?error=auth_failed', request.url))
+
+  // If something went wrong, redirect to login with error
+  return NextResponse.redirect(`${origin}/login?error=auth_callback_failed`)
 }
