@@ -4,6 +4,10 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Runr — Do less. Run more.',
   description: 'Your AI agent. Always on. Manages email, calendar, web research, Telegram, and Discord — 24/7 without manual intervention.',
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/logo.png',
+  },
   openGraph: {
     title: 'Runr — Do less. Run more.',
     description: 'Your AI agent. Always on.',

@@ -188,8 +188,9 @@ export default function LandingPage() {
       {/* ─── Nav ─── */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-border">
         <div className="max-w-[1200px] mx-auto px-6 h-14 flex items-center justify-between">
-          <a href="/" className="font-logo text-3xl tracking-tight text-ink">
-            RUNR
+          <a href="/" className="flex items-center gap-2">
+            <img src="/logo.png" alt="Runr" className="h-7 w-7" />
+            <span className="font-logo text-3xl tracking-tight text-ink">RUNR</span>
           </a>
           <div className="flex items-center gap-8">
             <a href="#features" className="font-mono text-xs uppercase tracking-[2px] text-muted hover:text-ink transition-colors duration-150">
