@@ -206,7 +206,7 @@ export default function IntegrationsPage() {
       description: 'Send commands and get results via Telegram. Bot is pre-configured — just open it and send /start.',
       icon: integrationIcons.telegram,
       connected: status.telegram,
-      onConnect: () => { window.open('https://t.me/RunrAgentBot', '_blank') },
+      onConnect: () => { window.open('https://t.me/Runr_ggbot', '_blank') },
       connectLabel: 'OPEN BOT',
     },
     {
