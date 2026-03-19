@@ -119,7 +119,7 @@ const pricing = [
     name: 'Custom', price: "Let's talk", period: '',
     features: ['Everything in Pro', 'Dedicated agent instance', 'SSO + team management', 'Custom integrations', 'SLA guarantee', 'On-call support'],
     inverted: false, cta: 'Contact us',
-    href: 'mailto:runrapp69@gmail.com?subject=Runr%20Custom%20Plan&body=Hi%2C%20I%27m%20interested%20in%20a%20custom%20Runr%20plan.',
+    href: 'mailto:support@runr.site?subject=Runr%20Custom%20Plan&body=Hi%2C%20I%27m%20interested%20in%20a%20custom%20Runr%20plan.',
   },
 ]
 
@@ -447,7 +447,7 @@ export default function LandingPage() {
             <div>
               <p className="font-mono text-[11px] uppercase tracking-[3px] text-ink mb-4">Company</p>
               <ul className="space-y-2.5">
-                <li><a href="mailto:runrapp69@gmail.com" className="font-mono text-sm text-muted hover:text-ink transition-colors">Contact</a></li>
+                <li><a href="mailto:support@runr.site" className="font-mono text-sm text-muted hover:text-ink transition-colors">Contact</a></li>
                 <li><a href="/privacy" className="font-mono text-sm text-muted hover:text-ink transition-colors">Privacy</a></li>
                 <li><a href="/terms" className="font-mono text-sm text-muted hover:text-ink transition-colors">Terms</a></li>
               </ul>
@@ -458,7 +458,7 @@ export default function LandingPage() {
           <div className="border-t border-border py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
             <span className="font-mono text-[11px] text-muted">&copy; {new Date().getFullYear()} Runr. All rights reserved.</span>
             <div className="flex gap-4">
-              <a href="mailto:runrapp69@gmail.com" className="text-muted hover:text-ink transition-colors" aria-label="Email">
+              <a href="mailto:support@runr.site" className="text-muted hover:text-ink transition-colors" aria-label="Email">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="2" y="4" width="20" height="16" rx="2" />
                   <path d="M2 6l10 7 10-7" />

@@ -85,7 +85,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2>9. Contact</h2>
-            <p>For privacy-related questions, contact us at <a href="mailto:runrapp69@gmail.com" className="text-ink underline hover:no-underline">runrapp69@gmail.com</a>.</p>
+            <p>For privacy-related questions, contact us at <a href="mailto:support@runr.site" className="text-ink underline hover:no-underline">support@runr.site</a>.</p>
           </section>
         </div>
 

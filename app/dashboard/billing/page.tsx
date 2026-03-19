@@ -79,7 +79,7 @@ function BillingContent() {
         <p className="font-mono text-sm text-muted mb-4">
           Need a dedicated instance, SSO, or custom integrations?
         </p>
-        <a href="mailto:runrapp69@gmail.com?subject=Runr%20Custom%20Plan&body=Hi%2C%20I%27m%20interested%20in%20a%20custom%20Runr%20plan."
+        <a href="mailto:support@runr.site?subject=Runr%20Custom%20Plan&body=Hi%2C%20I%27m%20interested%20in%20a%20custom%20Runr%20plan."
           className="font-mono text-xs uppercase tracking-[2px] inline-block px-6 py-3 border border-ink text-ink hover:bg-ink hover:text-white transition-all duration-150 hover:-translate-y-[2px]">
           Contact us
         </a>

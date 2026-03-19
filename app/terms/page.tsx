@@ -98,7 +98,7 @@ export default function TermsPage() {
 
           <section>
             <h2>11. Contact</h2>
-            <p>For questions about these terms, contact us at <a href="mailto:runrapp69@gmail.com" className="text-ink underline hover:no-underline">runrapp69@gmail.com</a>.</p>
+            <p>For questions about these terms, contact us at <a href="mailto:support@runr.site" className="text-ink underline hover:no-underline">support@runr.site</a>.</p>
           </section>
         </div>
 
