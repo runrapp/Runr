@@ -83,36 +83,12 @@ const icons = {
 
 /* ─── Capability Cards Data ─── */
 const capabilities = [
-  {
-    icon: icons.email,
-    title: 'Email Management',
-    desc: 'Reads, summarizes, and replies to your Gmail. Handles the inbox so you don\'t have to.',
-  },
-  {
-    icon: icons.calendar,
-    title: 'Calendar & Scheduling',
-    desc: 'Creates events, detects conflicts, sends invites. Your schedule, managed automatically.',
-  },
-  {
-    icon: icons.web,
-    title: 'Web Research',
-    desc: 'Browses any public page, extracts what matters, and gives you a clean summary.',
-  },
-  {
-    icon: icons.telegram,
-    title: 'Telegram Integration',
-    desc: 'Send commands via Telegram. Get results back instantly. Your agent lives in your chat.',
-  },
-  {
-    icon: icons.discord,
-    title: 'Discord Integration',
-    desc: 'Slash commands in your server. Task results posted to your channel. Built for teams.',
-  },
-  {
-    icon: icons.task,
-    title: 'Task Automation',
-    desc: 'Chain tasks together. Set recurring jobs. Your agent works while you sleep.',
-  },
+  { icon: icons.email, title: 'Email Management', desc: 'Reads, summarizes, and replies to your Gmail. Handles the inbox so you don\'t have to.' },
+  { icon: icons.calendar, title: 'Calendar & Scheduling', desc: 'Creates events, detects conflicts, sends invites. Your schedule, managed automatically.' },
+  { icon: icons.web, title: 'Web Research', desc: 'Browses any public page, extracts what matters, and gives you a clean summary.' },
+  { icon: icons.telegram, title: 'Telegram Integration', desc: 'Send commands via Telegram. Get results back instantly. Your agent lives in your chat.' },
+  { icon: icons.discord, title: 'Discord Integration', desc: 'Slash commands in your server. Task results posted to your channel. Built for teams.' },
+  { icon: icons.task, title: 'Task Automation', desc: 'Chain tasks together. Set recurring jobs. Your agent works while you sleep.' },
 ]
 
 /* ─── Chat Messages for How It Works ─── */
@@ -120,10 +96,7 @@ const chatMessages = [
   { role: 'user' as const, text: '/task summarize my emails today' },
   { role: 'agent' as const, text: 'Parsing intent... Connecting to Gmail.' },
   { role: 'agent' as const, text: 'Found 14 emails. 3 require action.' },
-  {
-    role: 'agent' as const,
-    text: '1. Invoice from AWS — $127.40, due Mar 22\n2. Meeting request from Sarah — Thu 2pm\n3. Support ticket #4021 — customer waiting',
-  },
+  { role: 'agent' as const, text: '1. Invoice from AWS — $127.40, due Mar 22\n2. Meeting request from Sarah — Thu 2pm\n3. Support ticket #4021 — customer waiting' },
   { role: 'user' as const, text: '/task accept Sarah\'s meeting' },
   { role: 'agent' as const, text: 'Event created: Thu 2pm — Meeting with Sarah Chen. Calendar invite sent.' },
 ]
@@ -131,55 +104,25 @@ const chatMessages = [
 /* ─── Pricing Data ─── */
 const pricing = [
   {
-    name: 'Starter',
-    price: '$25',
-    period: '/mo',
-    features: [
-      '500 tasks per month',
-      'Email + Calendar',
-      'Web research',
-      '2 messaging integrations',
-      'Task history — 30 days',
-    ],
-    inverted: false,
-    cta: 'Get started',
+    name: 'Starter', price: '$25', period: '/mo',
+    features: ['500 tasks per month', 'Email + Calendar', 'Web research', '2 messaging integrations', 'Task history — 30 days'],
+    inverted: false, cta: 'Get started',
     href: 'https://runr.lemonsqueezy.com/checkout/buy/ac2a9b22-66a4-4a89-9777-16299cbdb1c5',
   },
   {
-    name: 'Pro',
-    price: '$75',
-    period: '/mo',
-    features: [
-      'Unlimited tasks',
-      'All integrations',
-      'Custom skills',
-      'Priority execution',
-      'Task history — unlimited',
-      'API access',
-    ],
-    inverted: true,
-    cta: 'Get started',
+    name: 'Pro', price: '$75', period: '/mo',
+    features: ['Unlimited tasks', 'All integrations', 'Custom skills', 'Priority execution', 'Task history — unlimited', 'API access'],
+    inverted: true, cta: 'Get started',
     href: 'https://runr.lemonsqueezy.com/checkout/buy/f6aff73d-726c-4962-8410-3445ec3994f7',
   },
   {
-    name: 'Custom',
-    price: "Let's talk",
-    period: '',
-    features: [
-      'Everything in Pro',
-      'Dedicated agent instance',
-      'SSO + team management',
-      'Custom integrations',
-      'SLA guarantee',
-      'On-call support',
-    ],
-    inverted: false,
-    cta: 'Contact us',
+    name: 'Custom', price: "Let's talk", period: '',
+    features: ['Everything in Pro', 'Dedicated agent instance', 'SSO + team management', 'Custom integrations', 'SLA guarantee', 'On-call support'],
+    inverted: false, cta: 'Contact us',
     href: 'mailto:runrapp69@gmail.com?subject=Runr%20Custom%20Plan&body=Hi%2C%20I%27m%20interested%20in%20a%20custom%20Runr%20plan.',
   },
 ]
 
-/* ─── Integration logos row ─── */
 const integrations = ['Telegram', 'Discord', 'Gmail', 'Google Calendar', 'More soon']
 
 /* ═══════════════════════════════════════════ */
@@ -188,38 +131,56 @@ const integrations = ['Telegram', 'Discord', 'Gmail', 'Google Calendar', 'More s
 
 export default function LandingPage() {
   const [email, setEmail] = useState('')
+  const [menuOpen, setMenuOpen] = useState(false)
 
   return (
     <main className="min-h-screen bg-white overflow-x-hidden">
       {/* ─── Nav ─── */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-border">
-        <div className="max-w-[1200px] mx-auto px-6 h-14 flex items-center justify-between">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2">
             <img src="/logo.png" alt="Runr" className="h-7 w-7" />
             <span className="font-logo text-3xl tracking-tight text-ink">RUNR</span>
           </a>
-          <div className="flex items-center gap-8">
-            <a href="#features" className="font-mono text-xs uppercase tracking-[2px] text-muted hover:text-ink transition-colors duration-150">
-              Features
-            </a>
-            <a href="#pricing" className="font-mono text-xs uppercase tracking-[2px] text-muted hover:text-ink transition-colors duration-150">
-              Pricing
-            </a>
-            <a
-              href="/dashboard"
-              className="font-mono text-xs uppercase tracking-[2px] bg-ink text-white px-4 py-2 hover:-translate-y-[2px] transition-transform duration-150"
-            >
-              Dashboard
-            </a>
+
+          {/* Desktop nav */}
+          <div className="hidden md:flex items-center gap-8">
+            <a href="#features" className="font-mono text-xs uppercase tracking-[2px] text-muted hover:text-ink transition-colors duration-150">Features</a>
+            <a href="#pricing" className="font-mono text-xs uppercase tracking-[2px] text-muted hover:text-ink transition-colors duration-150">Pricing</a>
+            <a href="/dashboard" className="font-mono text-xs uppercase tracking-[2px] bg-ink text-white px-4 py-2 hover:-translate-y-[2px] transition-transform duration-150">Dashboard</a>
           </div>
+
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden flex flex-col gap-1.5 p-2"
+            aria-label="Menu"
+          >
+            <span className={`block w-5 h-[1.5px] bg-ink transition-transform duration-200 ${menuOpen ? 'rotate-45 translate-y-[5px]' : ''}`} />
+            <span className={`block w-5 h-[1.5px] bg-ink transition-opacity duration-200 ${menuOpen ? 'opacity-0' : ''}`} />
+            <span className={`block w-5 h-[1.5px] bg-ink transition-transform duration-200 ${menuOpen ? '-rotate-45 -translate-y-[5px]' : ''}`} />
+          </button>
         </div>
+
+        {/* Mobile menu */}
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="md:hidden border-t border-border bg-white px-4 py-4 space-y-3"
+          >
+            <a href="#features" onClick={() => setMenuOpen(false)} className="block font-mono text-xs uppercase tracking-[2px] text-muted hover:text-ink py-2">Features</a>
+            <a href="#pricing" onClick={() => setMenuOpen(false)} className="block font-mono text-xs uppercase tracking-[2px] text-muted hover:text-ink py-2">Pricing</a>
+            <a href="/dashboard" className="block font-mono text-xs uppercase tracking-[2px] bg-ink text-white px-4 py-2 text-center">Dashboard</a>
+          </motion.div>
+        )}
       </nav>
 
       {/* ═══ SECTION 1: Hero ═══ */}
-      <section className="min-h-screen flex flex-col justify-center items-center px-6 pt-14">
+      <section className="min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 pt-14">
         <div className="max-w-[1200px] w-full">
           <motion.h1
-            className="font-brand font-bold italic text-[clamp(64px,12vw,140px)] leading-[0.9] tracking-tight text-ink"
+            className="font-brand font-bold italic text-[clamp(48px,12vw,140px)] leading-[0.9] tracking-tight text-ink"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: 'easeOut' as const }}
@@ -227,7 +188,7 @@ export default function LandingPage() {
             DO LESS.
           </motion.h1>
           <motion.h1
-            className="font-brand font-bold text-[clamp(64px,12vw,140px)] leading-[0.9] tracking-tight text-ink"
+            className="font-brand font-bold text-[clamp(48px,12vw,140px)] leading-[0.9] tracking-tight text-ink"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.08, ease: 'easeOut' as const }}
@@ -235,7 +196,7 @@ export default function LandingPage() {
             RUN MORE.
           </motion.h1>
           <motion.p
-            className="mt-8 font-mono text-sm text-muted max-w-md"
+            className="mt-6 sm:mt-8 font-mono text-sm text-muted max-w-md"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.18, ease: 'easeOut' as const }}
@@ -243,20 +204,20 @@ export default function LandingPage() {
             Your AI agent. Always on.
           </motion.p>
           <motion.div
-            className="mt-10 flex gap-4"
+            className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.26, ease: 'easeOut' as const }}
           >
             <a
-              href="/dashboard"
-              className="font-mono text-xs uppercase tracking-[2px] bg-ink text-white px-6 py-3 hover:-translate-y-[2px] transition-transform duration-150 inline-block"
+              href="/signup"
+              className="font-mono text-xs uppercase tracking-[2px] bg-ink text-white px-6 py-3 hover:-translate-y-[2px] transition-transform duration-150 inline-block text-center"
             >
-              Start for free
+              Get started
             </a>
             <a
               href="#how-it-works"
-              className="font-mono text-xs uppercase tracking-[2px] border border-ink text-ink px-6 py-3 hover:-translate-y-[2px] hover:bg-ink hover:text-white transition-all duration-150 inline-block"
+              className="font-mono text-xs uppercase tracking-[2px] border border-ink text-ink px-6 py-3 hover:-translate-y-[2px] hover:bg-ink hover:text-white transition-all duration-150 inline-block text-center"
             >
               See how it works
             </a>
@@ -268,10 +229,7 @@ export default function LandingPage() {
       <div className="border-t border-b border-border py-3 overflow-hidden">
         <div className="marquee-track">
           {[...Array(4)].map((_, i) => (
-            <span
-              key={i}
-              className="font-mono text-[11px] uppercase tracking-[3px] text-muted whitespace-nowrap px-4"
-            >
+            <span key={i} className="font-mono text-[11px] uppercase tracking-[3px] text-muted whitespace-nowrap px-4">
               DO LESS. RUN MORE. &middot; TELEGRAM &middot; DISCORD &middot; EMAIL &middot; CALENDAR &middot; WEB &middot;&nbsp;
             </span>
           ))}
@@ -279,40 +237,19 @@ export default function LandingPage() {
       </div>
 
       {/* ═══ SECTION 2: What Runr Does ═══ */}
-      <Section className="py-24 px-6" >
+      <Section className="py-16 sm:py-24 px-4 sm:px-6">
         <div className="max-w-[1200px] mx-auto" id="features">
-          <motion.p
-            variants={fadeUp}
-            custom={0}
-            className="font-mono text-[11px] uppercase tracking-[3px] text-muted mb-4"
-          >
-            Capabilities
-          </motion.p>
-          <motion.h2
-            variants={fadeUp}
-            custom={1}
-            className="font-display text-[clamp(40px,6vw,72px)] leading-[0.95] tracking-display text-ink mb-16"
-          >
+          <motion.p variants={fadeUp} custom={0} className="font-mono text-[11px] uppercase tracking-[3px] text-muted mb-4">Capabilities</motion.p>
+          <motion.h2 variants={fadeUp} custom={1} className="font-display text-[clamp(32px,6vw,72px)] leading-[0.95] tracking-display text-ink mb-10 sm:mb-16">
             ONE AGENT.<br />EVERYTHING RUNS.
           </motion.h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
             {capabilities.map((cap, i) => (
-              <motion.div
-                key={cap.title}
-                variants={fadeUp}
-                custom={i + 2}
-                className="bg-white p-8 group hover:bg-surface transition-colors duration-150"
-              >
-                <div className="text-ink mb-6 opacity-60 group-hover:opacity-100 transition-opacity duration-150">
-                  {cap.icon}
-                </div>
-                <h3 className="font-display text-2xl tracking-display text-ink mb-3">
-                  {cap.title.toUpperCase()}
-                </h3>
-                <p className="font-mono text-sm text-muted leading-relaxed">
-                  {cap.desc}
-                </p>
+              <motion.div key={cap.title} variants={fadeUp} custom={i + 2} className="bg-white p-6 sm:p-8 group hover:bg-surface transition-colors duration-150">
+                <div className="text-ink mb-4 sm:mb-6 opacity-60 group-hover:opacity-100 transition-opacity duration-150">{cap.icon}</div>
+                <h3 className="font-display text-xl sm:text-2xl tracking-display text-ink mb-2 sm:mb-3">{cap.title.toUpperCase()}</h3>
+                <p className="font-mono text-sm text-muted leading-relaxed">{cap.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -320,32 +257,18 @@ export default function LandingPage() {
       </Section>
 
       {/* ═══ SECTION 3: How It Works ═══ */}
-      <Section className="py-24 px-6 bg-surface" >
+      <Section className="py-16 sm:py-24 px-4 sm:px-6 bg-surface">
         <div className="max-w-[1200px] mx-auto" id="how-it-works">
-          <motion.p
-            variants={fadeUp}
-            custom={0}
-            className="font-mono text-[11px] uppercase tracking-[3px] text-muted mb-4"
-          >
-            How it works
-          </motion.p>
-          <motion.h2
-            variants={fadeUp}
-            custom={1}
-            className="font-display text-[clamp(40px,6vw,72px)] leading-[0.95] tracking-display text-ink mb-16"
-          >
+          <motion.p variants={fadeUp} custom={0} className="font-mono text-[11px] uppercase tracking-[3px] text-muted mb-4">How it works</motion.p>
+          <motion.h2 variants={fadeUp} custom={1} className="font-display text-[clamp(32px,6vw,72px)] leading-[0.95] tracking-display text-ink mb-10 sm:mb-16">
             COMMAND. EXECUTE. DONE.
           </motion.h2>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
             {/* Chat Interface */}
-            <motion.div
-              variants={fadeUp}
-              custom={2}
-              className="bg-white border border-border p-6 max-h-[520px] overflow-hidden"
-            >
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border">
-                <div className="w-8 h-8 bg-ink flex items-center justify-center">
+            <motion.div variants={fadeUp} custom={2} className="bg-white border border-border p-4 sm:p-6 max-h-[520px] overflow-hidden">
+              <div className="flex items-center gap-3 mb-4 sm:mb-6 pb-4 border-b border-border">
+                <div className="w-8 h-8 bg-ink flex items-center justify-center flex-shrink-0">
                   <span className="font-display text-white text-sm">R</span>
                 </div>
                 <div>
@@ -357,33 +280,18 @@ export default function LandingPage() {
             </motion.div>
 
             {/* Execution Flow */}
-            <motion.div
-              variants={fadeUp}
-              custom={3}
-              className="flex flex-col justify-center"
-            >
+            <motion.div variants={fadeUp} custom={3} className="flex flex-col justify-center">
               {[
                 { step: '01', title: 'Receive command', desc: 'Agent picks up your message via Telegram, Discord, or the dashboard.' },
                 { step: '02', title: 'Parse intent', desc: 'Claude analyzes the request, identifies the right skill and parameters.' },
                 { step: '03', title: 'Execute task', desc: 'Connects to Gmail, Calendar, web, or any active integration and runs.' },
                 { step: '04', title: 'Return result', desc: 'Clean output delivered back to you. Task logged. Done.' },
               ].map((item, i) => (
-                <motion.div
-                  key={item.step}
-                  variants={fadeUp}
-                  custom={i + 4}
-                  className="flex gap-6 mb-8 last:mb-0"
-                >
-                  <span className="font-display text-4xl text-border leading-none pt-1">
-                    {item.step}
-                  </span>
+                <motion.div key={item.step} variants={fadeUp} custom={i + 4} className="flex gap-4 sm:gap-6 mb-6 sm:mb-8 last:mb-0">
+                  <span className="font-display text-3xl sm:text-4xl text-border leading-none pt-1 flex-shrink-0">{item.step}</span>
                   <div>
-                    <h4 className="font-display text-xl tracking-display text-ink mb-1">
-                      {item.title.toUpperCase()}
-                    </h4>
-                    <p className="font-mono text-sm text-muted leading-relaxed">
-                      {item.desc}
-                    </p>
+                    <h4 className="font-display text-lg sm:text-xl tracking-display text-ink mb-1">{item.title.toUpperCase()}</h4>
+                    <p className="font-mono text-sm text-muted leading-relaxed">{item.desc}</p>
                   </div>
                 </motion.div>
               ))}
@@ -393,112 +301,49 @@ export default function LandingPage() {
       </Section>
 
       {/* ═══ SECTION 4: Integrations ═══ */}
-      <Section className="py-24 px-6">
+      <Section className="py-16 sm:py-24 px-4 sm:px-6">
         <div className="max-w-[1200px] mx-auto text-center">
-          <motion.p
-            variants={fadeUp}
-            custom={0}
-            className="font-mono text-[11px] uppercase tracking-[3px] text-muted mb-4"
-          >
-            Integrations
-          </motion.p>
-          <motion.div
-            variants={fadeUp}
-            custom={1}
-            className="flex flex-wrap justify-center gap-4 mb-12"
-          >
+          <motion.p variants={fadeUp} custom={0} className="font-mono text-[11px] uppercase tracking-[3px] text-muted mb-4">Integrations</motion.p>
+          <motion.div variants={fadeUp} custom={1} className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-12">
             {integrations.map((name, i) => (
-              <motion.span
-                key={name}
-                variants={fadeUp}
-                custom={i + 2}
-                className={`font-mono text-sm px-6 py-3 border border-border ${
-                  name === 'More soon'
-                    ? 'text-muted border-dashed'
-                    : 'text-ink hover:bg-surface transition-colors duration-150'
-                }`}
-              >
+              <motion.span key={name} variants={fadeUp} custom={i + 2}
+                className={`font-mono text-sm px-4 sm:px-6 py-2.5 sm:py-3 border border-border ${
+                  name === 'More soon' ? 'text-muted border-dashed' : 'text-ink hover:bg-surface transition-colors duration-150'
+                }`}>
                 {name}
               </motion.span>
             ))}
           </motion.div>
-          <motion.p
-            variants={fadeUp}
-            custom={7}
-            className="font-mono text-sm text-muted"
-          >
-            Connect once. Run forever.
-          </motion.p>
+          <motion.p variants={fadeUp} custom={7} className="font-mono text-sm text-muted">Connect once. Run forever.</motion.p>
         </div>
       </Section>
 
       {/* ═══ SECTION 5: Pricing ═══ */}
-      <Section className="py-24 px-6 bg-surface" >
+      <Section className="py-16 sm:py-24 px-4 sm:px-6 bg-surface">
         <div className="max-w-[1200px] mx-auto" id="pricing">
-          <motion.p
-            variants={fadeUp}
-            custom={0}
-            className="font-mono text-[11px] uppercase tracking-[3px] text-muted mb-4"
-          >
-            Pricing
-          </motion.p>
-          <motion.h2
-            variants={fadeUp}
-            custom={1}
-            className="font-display text-[clamp(40px,6vw,72px)] leading-[0.95] tracking-display text-ink mb-16"
-          >
+          <motion.p variants={fadeUp} custom={0} className="font-mono text-[11px] uppercase tracking-[3px] text-muted mb-4">Pricing</motion.p>
+          <motion.h2 variants={fadeUp} custom={1} className="font-display text-[clamp(32px,6vw,72px)] leading-[0.95] tracking-display text-ink mb-10 sm:mb-16">
             PICK YOUR LANE.
           </motion.h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border">
             {pricing.map((tier, i) => (
-              <motion.div
-                key={tier.name}
-                variants={fadeUp}
-                custom={i + 2}
-                className={`p-8 ${
-                  tier.inverted
-                    ? 'bg-ink text-white'
-                    : 'bg-white text-ink'
-                }`}
-              >
-                <p className={`font-mono text-[11px] uppercase tracking-[3px] mb-2 ${
-                  tier.inverted ? 'text-white/50' : 'text-muted'
-                }`}>
-                  {tier.name}
-                </p>
-                <div className="mb-8">
-                  <span className="font-display text-5xl tracking-display">
-                    {tier.price}
-                  </span>
-                  {tier.period && (
-                    <span className={`font-mono text-sm ${
-                      tier.inverted ? 'text-white/50' : 'text-muted'
-                    }`}>
-                      {tier.period}
-                    </span>
-                  )}
+              <motion.div key={tier.name} variants={fadeUp} custom={i + 2}
+                className={`p-6 sm:p-8 ${tier.inverted ? 'bg-ink text-white' : 'bg-white text-ink'}`}>
+                <p className={`font-mono text-[11px] uppercase tracking-[3px] mb-2 ${tier.inverted ? 'text-white/50' : 'text-muted'}`}>{tier.name}</p>
+                <div className="mb-6 sm:mb-8">
+                  <span className="font-display text-4xl sm:text-5xl tracking-display">{tier.price}</span>
+                  {tier.period && <span className={`font-mono text-sm ${tier.inverted ? 'text-white/50' : 'text-muted'}`}>{tier.period}</span>}
                 </div>
-                <ul className="space-y-3 mb-8">
+                <ul className="space-y-3 mb-6 sm:mb-8">
                   {tier.features.map((f) => (
-                    <li
-                      key={f}
-                      className={`font-mono text-sm ${
-                        tier.inverted ? 'text-white/70' : 'text-muted'
-                      }`}
-                    >
-                      {f}
-                    </li>
+                    <li key={f} className={`font-mono text-sm ${tier.inverted ? 'text-white/70' : 'text-muted'}`}>{f}</li>
                   ))}
                 </ul>
-                <a
-                  href={tier.href}
+                <a href={tier.href}
                   className={`font-mono text-xs uppercase tracking-[2px] inline-block px-6 py-3 border transition-all duration-150 hover:-translate-y-[2px] ${
-                    tier.inverted
-                      ? 'border-white text-white hover:bg-white hover:text-ink'
-                      : 'border-ink text-ink hover:bg-ink hover:text-white'
-                  }`}
-                >
+                    tier.inverted ? 'border-white text-white hover:bg-white hover:text-ink' : 'border-ink text-ink hover:bg-ink hover:text-white'
+                  }`}>
                   {tier.cta}
                 </a>
               </motion.div>
@@ -508,14 +353,14 @@ export default function LandingPage() {
       </Section>
 
       {/* ═══ SECTION 6: Footer CTA ═══ */}
-      <section className="py-32 px-6">
+      <section className="py-20 sm:py-32 px-4 sm:px-6">
         <div className="max-w-[1200px] mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.4, ease: 'easeOut' as const }}
-            className="font-display text-[clamp(48px,8vw,100px)] leading-[0.9] tracking-display text-ink mb-12"
+            className="font-display text-[clamp(40px,8vw,100px)] leading-[0.9] tracking-display text-ink mb-8 sm:mb-12"
           >
             READY TO RUN?
           </motion.h2>
@@ -524,24 +369,18 @@ export default function LandingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.4, delay: 0.1, ease: 'easeOut' as const }}
-            className="flex gap-0 max-w-lg"
-            onSubmit={(e) => {
-              e.preventDefault()
-              if (email) window.location.href = '/signup'
-            }}
+            className="flex flex-col sm:flex-row gap-0 max-w-lg"
+            onSubmit={(e) => { e.preventDefault(); if (email) window.location.href = '/signup' }}
           >
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@email.com"
-              className="flex-1 font-mono text-sm px-4 py-3 border border-border border-r-0 bg-white text-ink placeholder:text-muted/50 focus:border-ink transition-colors duration-150"
+              className="flex-1 font-mono text-sm px-4 py-3 border border-border sm:border-r-0 bg-white text-ink placeholder:text-muted/50 focus:border-ink transition-colors duration-150"
               required
             />
-            <button
-              type="submit"
-              className="font-mono text-xs uppercase tracking-[2px] bg-ink text-white px-6 py-3 hover:-translate-y-[2px] transition-transform duration-150 whitespace-nowrap"
-            >
+            <button type="submit" className="font-mono text-xs uppercase tracking-[2px] bg-ink text-white px-6 py-3 hover:-translate-y-[2px] transition-transform duration-150 whitespace-nowrap">
               Get started
             </button>
           </motion.form>
@@ -549,20 +388,14 @@ export default function LandingPage() {
       </section>
 
       {/* ─── Footer ─── */}
-      <footer className="border-t border-border py-8 px-6">
-        <div className="max-w-[1200px] mx-auto flex items-center justify-between">
+      <footer className="border-t border-border py-6 sm:py-8 px-4 sm:px-6">
+        <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="font-display text-lg tracking-display text-ink">RUNR</span>
           <div className="flex gap-6">
-            <a href="/skill.md" className="font-mono text-[11px] uppercase tracking-[2px] text-muted hover:text-ink transition-colors duration-150">
-              skill.md
-            </a>
-            <a href="/dashboard" className="font-mono text-[11px] uppercase tracking-[2px] text-muted hover:text-ink transition-colors duration-150">
-              Dashboard
-            </a>
+            <a href="/skill.md" className="font-mono text-[11px] uppercase tracking-[2px] text-muted hover:text-ink transition-colors duration-150">skill.md</a>
+            <a href="/dashboard" className="font-mono text-[11px] uppercase tracking-[2px] text-muted hover:text-ink transition-colors duration-150">Dashboard</a>
           </div>
-          <span className="font-mono text-[11px] text-muted">
-            &copy; {new Date().getFullYear()} Runr
-          </span>
+          <span className="font-mono text-[11px] text-muted">&copy; {new Date().getFullYear()} Runr</span>
         </div>
       </footer>
     </main>
@@ -579,9 +412,7 @@ function ChatDemo() {
     if (!inView) return
     const timers: NodeJS.Timeout[] = []
     chatMessages.forEach((_, i) => {
-      timers.push(
-        setTimeout(() => setVisibleMessages(i + 1), (i + 1) * 700)
-      )
+      timers.push(setTimeout(() => setVisibleMessages(i + 1), (i + 1) * 700))
     })
     return () => timers.forEach(clearTimeout)
   }, [inView])
@@ -589,20 +420,11 @@ function ChatDemo() {
   return (
     <div ref={ref} className="space-y-4">
       {chatMessages.slice(0, visibleMessages).map((msg, i) => (
-        <motion.div
-          key={i}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-        >
-          <div
-            className={`max-w-[80%] px-4 py-3 font-mono text-sm leading-relaxed whitespace-pre-line ${
-              msg.role === 'user'
-                ? 'bg-ink text-white'
-                : 'bg-surface text-ink'
-            }`}
-          >
+        <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}
+          className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+          <div className={`max-w-[85%] sm:max-w-[80%] px-3 sm:px-4 py-2.5 sm:py-3 font-mono text-xs sm:text-sm leading-relaxed whitespace-pre-line ${
+            msg.role === 'user' ? 'bg-ink text-white' : 'bg-surface text-ink'
+          }`}>
             {msg.text}
           </div>
         </motion.div>

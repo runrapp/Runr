@@ -286,7 +286,7 @@ function IntegrationsContent() {
               <div className="flex items-center gap-3">
                 <div className="text-ink opacity-60">{item.icon}</div>
                 <div>
-                  <h3 className="font-display text-xl tracking-display text-ink">
+                  <h3 className="font-display text-lg sm:text-xl tracking-display text-ink">
                     {item.name.toUpperCase()}
                   </h3>
                   <p className={`font-mono text-[11px] uppercase tracking-[2px] ${item.connected ? 'text-ink' : 'text-muted'}`}>
@@ -337,7 +337,7 @@ function IntegrationsContent() {
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white border border-border p-8 w-full max-w-md"
+            className="bg-white border border-border p-5 sm:p-8 w-full max-w-md"
           >
             <p className="font-mono text-[11px] uppercase tracking-[3px] text-muted mb-2">
               Connect Telegram
@@ -395,7 +395,7 @@ function IntegrationsContent() {
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white border border-border p-8 w-full max-w-md"
+            className="bg-white border border-border p-5 sm:p-8 w-full max-w-md"
           >
             <p className="font-mono text-[11px] uppercase tracking-[3px] text-muted mb-2">
               Connect Discord
