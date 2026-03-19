@@ -143,7 +143,7 @@ const pricing = [
     ],
     inverted: false,
     cta: 'Get started',
-    href: '/signup?plan=starter',
+    href: 'https://runr.lemonsqueezy.com/checkout/buy/ac2a9b22-66a4-4a89-9777-16299cbdb1c5',
   },
   {
     name: 'Pro',
@@ -159,7 +159,7 @@ const pricing = [
     ],
     inverted: true,
     cta: 'Get started',
-    href: '/signup?plan=pro',
+    href: 'https://runr.lemonsqueezy.com/checkout/buy/ac2a9b22-66a4-4a89-9777-16299cbdb1c5',
   },
   {
     name: 'Custom',
