@@ -10,6 +10,18 @@ export async function GET() {
 
   const commands = [
     {
+      name: 'connect',
+      description: 'Link Runr to this Discord channel',
+      options: [
+        {
+          name: 'code',
+          description: '6-character code from runr.site/dashboard/integrations',
+          type: 3,
+          required: true,
+        },
+      ],
+    },
+    {
       name: 'task',
       description: 'Run a task with Runr agent',
       options: [

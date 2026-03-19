@@ -13,11 +13,36 @@ async function followUpDiscord(applicationId: string, interactionToken: string, 
   })
 }
 
+async function linkDiscord(code: string, channelId: string, guildId: string, username: string): Promise<boolean> {
+  try {
+    const { createServerClient } = await import('@/lib/supabase/server')
+    const supabase = createServerClient()
+
+    const { data, error } = await supabase
+      .from('integration_links')
+      .update({
+        chat_id: channelId,
+        user_id: guildId,
+        username: username,
+        status: 'linked',
+        linked_at: new Date().toISOString(),
+      })
+      .eq('connect_code', code.toUpperCase())
+      .eq('platform', 'discord')
+      .eq('status', 'pending')
+      .select()
+      .single()
+
+    return !error && !!data
+  } catch {
+    return false
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
 
-    // Respond to Discord PING verification
     if (body.type === PING) {
       return NextResponse.json({ type: 1 })
     }
@@ -27,10 +52,29 @@ export async function POST(req: NextRequest) {
       const applicationId = body.application_id
       const interactionToken = body.token
 
+      // /connect code
+      if (commandName === 'connect') {
+        const code = body.data.options?.[0]?.value || ''
+        const channelId = body.channel_id
+        const guildId = body.guild_id || ''
+        const username = body.member?.user?.username || body.user?.username || 'Unknown'
+
+        const linked = await linkDiscord(code, channelId, guildId, username)
+
+        return NextResponse.json({
+          type: 4,
+          data: {
+            content: linked
+              ? '✅ **Connected!** Runr is now linked to this channel. Try `/task summarize my emails`'
+              : '❌ Invalid or expired code. Go to runr.site/dashboard/integrations and generate a new one.',
+          },
+        })
+      }
+
+      // /task
       if (commandName === 'task') {
         const command = body.data.options?.[0]?.value || ''
 
-        // Process async, respond with deferred
         setTimeout(async () => {
           try {
             const result = await runAgent(command)
@@ -38,14 +82,14 @@ export async function POST(req: NextRequest) {
             await followUpDiscord(applicationId, interactionToken, response)
           } catch (err) {
             await followUpDiscord(applicationId, interactionToken,
-              `❌ Error: ${err instanceof Error ? err.message : 'Unknown error'}`
-            )
+              `❌ Error: ${err instanceof Error ? err.message : 'Unknown error'}`)
           }
         }, 0)
 
         return NextResponse.json({ type: DEFERRED_CHANNEL_MESSAGE })
       }
 
+      // /status
       if (commandName === 'status') {
         return NextResponse.json({
           type: 4,
@@ -53,6 +97,7 @@ export async function POST(req: NextRequest) {
         })
       }
 
+      // /emails
       if (commandName === 'emails') {
         setTimeout(async () => {
           try {
@@ -60,13 +105,13 @@ export async function POST(req: NextRequest) {
             await followUpDiscord(applicationId, interactionToken, result.result)
           } catch (err) {
             await followUpDiscord(applicationId, interactionToken,
-              `❌ Error: ${err instanceof Error ? err.message : 'Unknown error'}`
-            )
+              `❌ Error: ${err instanceof Error ? err.message : 'Unknown error'}`)
           }
         }, 0)
         return NextResponse.json({ type: DEFERRED_CHANNEL_MESSAGE })
       }
 
+      // /events
       if (commandName === 'events') {
         setTimeout(async () => {
           try {
@@ -74,8 +119,7 @@ export async function POST(req: NextRequest) {
             await followUpDiscord(applicationId, interactionToken, result.result)
           } catch (err) {
             await followUpDiscord(applicationId, interactionToken,
-              `❌ Error: ${err instanceof Error ? err.message : 'Unknown error'}`
-            )
+              `❌ Error: ${err instanceof Error ? err.message : 'Unknown error'}`)
           }
         }, 0)
         return NextResponse.json({ type: DEFERRED_CHANNEL_MESSAGE })

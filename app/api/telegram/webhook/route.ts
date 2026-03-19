@@ -16,6 +16,31 @@ async function sendTelegramMessage(chatId: number, text: string) {
   })
 }
 
+async function linkTelegram(code: string, chatId: number, username: string): Promise<boolean> {
+  try {
+    const { createServerClient } = await import('@/lib/supabase/server')
+    const supabase = createServerClient()
+
+    const { data, error } = await supabase
+      .from('integration_links')
+      .update({
+        chat_id: String(chatId),
+        username: username,
+        status: 'linked',
+        linked_at: new Date().toISOString(),
+      })
+      .eq('connect_code', code.toUpperCase())
+      .eq('platform', 'telegram')
+      .eq('status', 'pending')
+      .select()
+      .single()
+
+    return !error && !!data
+  } catch {
+    return false
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const update = await req.json()
@@ -26,14 +51,50 @@ export async function POST(req: NextRequest) {
 
     const chatId = message.chat.id
     const text = message.text.trim()
+    const username = message.from?.username || message.from?.first_name || 'Unknown'
 
+    // /start
     if (text === '/start') {
       await sendTelegramMessage(chatId,
-        '🤖 *Runr Agent*\n\nYour AI agent. Always on.\n\nSend me any command:\n• _summarize my emails_\n• _what\'s on my calendar_\n• _search for latest AI news_\n• _browse https://example.com_\n\nType anything to get started.'
+        '🤖 *Runr Agent*\n\nYour AI agent. Always on.\n\n' +
+        '*To connect your account:*\n' +
+        '1. Go to runr.site/dashboard/integrations\n' +
+        '2. Click Connect on Telegram\n' +
+        '3. Send the code here: `/connect CODE`\n\n' +
+        '*Once connected, try:*\n' +
+        '• _summarize my emails_\n' +
+        '• _what\'s on my calendar today_\n' +
+        '• _search for latest AI news_'
       )
       return NextResponse.json({ ok: true })
     }
 
+    // /connect CODE
+    if (text.startsWith('/connect')) {
+      const code = text.replace('/connect', '').trim().toUpperCase()
+
+      if (!code || code.length !== 6) {
+        await sendTelegramMessage(chatId,
+          '⚠️ Invalid code. Get a 6-character code from runr.site/dashboard/integrations and send:\n`/connect ABCDEF`'
+        )
+        return NextResponse.json({ ok: true })
+      }
+
+      const linked = await linkTelegram(code, chatId, username)
+
+      if (linked) {
+        await sendTelegramMessage(chatId,
+          '✅ *Connected!*\n\nYour Telegram is now linked to Runr. Send me any command and I\'ll handle it.\n\nTry: _summarize my emails today_'
+        )
+      } else {
+        await sendTelegramMessage(chatId,
+          '❌ Invalid or expired code. Go to runr.site/dashboard/integrations and generate a new one.'
+        )
+      }
+      return NextResponse.json({ ok: true })
+    }
+
+    // /status
     if (text === '/status') {
       await sendTelegramMessage(chatId, '✅ Runr agent is online and ready.')
       return NextResponse.json({ ok: true })
