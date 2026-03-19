@@ -3,6 +3,7 @@
 import { Suspense, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useSearchParams } from 'next/navigation'
+import Link from 'next/link'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 12 },
@@ -71,6 +72,7 @@ function IntegrationsContent() {
   const [toast, setToast] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const [modal, setModal] = useState<'telegram' | 'discord' | null>(null)
   const [loading, setLoading] = useState(false)
+  const [hasSubscription, setHasSubscription] = useState(false)
 
   // Telegram form
   const [tgToken, setTgToken] = useState('')
@@ -94,6 +96,19 @@ function IntegrationsContent() {
       setToast({ type: 'error', text: `Connection failed: ${decodeURIComponent(error)}` })
       window.history.replaceState({}, '', '/dashboard/integrations')
     }
+
+    // Handle subscription success from Stripe redirect
+    const subscribed = searchParams.get('subscribed')
+    if (subscribed === 'starter' || subscribed === 'pro') {
+      localStorage.setItem('runr_subscription', subscribed)
+      setHasSubscription(true)
+      setToast({ type: 'success', text: `${subscribed.charAt(0).toUpperCase() + subscribed.slice(1)} plan activated! You can now connect integrations.` })
+      window.history.replaceState({}, '', '/dashboard/integrations')
+    }
+
+    // Check subscription
+    const sub = localStorage.getItem('runr_subscription')
+    setHasSubscription(sub === 'starter' || sub === 'pro')
 
     // Restore from localStorage
     const tgData = localStorage.getItem('runr_telegram_bot')
@@ -297,9 +312,13 @@ function IntegrationsContent() {
               ) : (
                 <button
                   onClick={() => {
-                    if (item.id === 'gmail') window.location.href = '/api/gmail/connect'
-                    else if (item.id === 'calendar') window.location.href = '/api/calendar/connect'
-                    else if (item.id === 'telegram') setModal('telegram')
+                    if (item.id === 'gmail') {
+                      if (!hasSubscription) { setToast({ type: 'error', text: 'Subscription needed.' }); window.location.href = '/#pricing'; return }
+                      window.location.href = '/api/gmail/connect'
+                    } else if (item.id === 'calendar') {
+                      if (!hasSubscription) { setToast({ type: 'error', text: 'Subscription needed.' }); window.location.href = '/#pricing'; return }
+                      window.location.href = '/api/calendar/connect'
+                    } else if (item.id === 'telegram') setModal('telegram')
                     else if (item.id === 'discord') setModal('discord')
                   }}
                   className="font-mono text-xs uppercase tracking-[2px] bg-ink text-white px-4 py-2 hover:-translate-y-[2px] transition-transform duration-150"
@@ -351,13 +370,20 @@ function IntegrationsContent() {
               >
                 Cancel
               </button>
-              <button
-                onClick={connectTelegram}
-                disabled={!tgToken.trim() || loading}
-                className="font-mono text-xs uppercase tracking-[2px] bg-ink text-white px-4 py-2 hover:-translate-y-[2px] transition-transform duration-150 disabled:opacity-40"
-              >
-                {loading ? 'Connecting...' : 'Connect'}
-              </button>
+              {hasSubscription ? (
+                <button
+                  onClick={connectTelegram}
+                  disabled={!tgToken.trim() || loading}
+                  className="font-mono text-xs uppercase tracking-[2px] bg-ink text-white px-4 py-2 hover:-translate-y-[2px] transition-transform duration-150 disabled:opacity-40"
+                >
+                  {loading ? 'Connecting...' : 'Connect'}
+                </button>
+              ) : (
+                <Link href="/subscribe?plan=starter"
+                  className="font-mono text-xs uppercase tracking-[2px] bg-muted/80 text-white px-4 py-2 hover:-translate-y-[2px] transition-transform duration-150 text-center">
+                  Subscription needed
+                </Link>
+              )}
             </div>
           </motion.div>
         </div>
@@ -421,13 +447,20 @@ function IntegrationsContent() {
               >
                 Cancel
               </button>
-              <button
-                onClick={connectDiscord}
-                disabled={!dcToken.trim() || !dcClientId.trim() || loading}
-                className="font-mono text-xs uppercase tracking-[2px] bg-ink text-white px-4 py-2 hover:-translate-y-[2px] transition-transform duration-150 disabled:opacity-40"
-              >
-                {loading ? 'Connecting...' : 'Connect'}
-              </button>
+              {hasSubscription ? (
+                <button
+                  onClick={connectDiscord}
+                  disabled={!dcToken.trim() || !dcClientId.trim() || loading}
+                  className="font-mono text-xs uppercase tracking-[2px] bg-ink text-white px-4 py-2 hover:-translate-y-[2px] transition-transform duration-150 disabled:opacity-40"
+                >
+                  {loading ? 'Connecting...' : 'Connect'}
+                </button>
+              ) : (
+                <Link href="/subscribe?plan=starter"
+                  className="font-mono text-xs uppercase tracking-[2px] bg-muted/80 text-white px-4 py-2 hover:-translate-y-[2px] transition-transform duration-150 text-center">
+                  Subscription needed
+                </Link>
+              )}
             </div>
           </motion.div>
         </div>

@@ -132,20 +132,22 @@ const chatMessages = [
 const pricing = [
   {
     name: 'Starter',
-    price: '$9',
+    price: '$25',
     period: '/mo',
     features: [
-      '100 tasks per month',
+      '500 tasks per month',
       'Email + Calendar',
       'Web research',
-      '1 messaging integration',
+      '2 messaging integrations',
       'Task history — 30 days',
     ],
     inverted: false,
+    cta: 'Get started',
+    href: '/signup?plan=starter',
   },
   {
     name: 'Pro',
-    price: '$29',
+    price: '$75',
     period: '/mo',
     features: [
       'Unlimited tasks',
@@ -156,10 +158,12 @@ const pricing = [
       'API access',
     ],
     inverted: true,
+    cta: 'Get started',
+    href: '/signup?plan=pro',
   },
   {
-    name: 'Enterprise',
-    price: 'Custom',
+    name: 'Custom',
+    price: "Let's talk",
     period: '',
     features: [
       'Everything in Pro',
@@ -170,6 +174,8 @@ const pricing = [
       'On-call support',
     ],
     inverted: false,
+    cta: 'Contact us',
+    href: 'mailto:runrapp69@gmail.com?subject=Runr%20Custom%20Plan&body=Hi%2C%20I%27m%20interested%20in%20a%20custom%20Runr%20plan.',
   },
 ]
 
@@ -486,14 +492,14 @@ export default function LandingPage() {
                   ))}
                 </ul>
                 <a
-                  href="/dashboard"
+                  href={tier.href}
                   className={`font-mono text-xs uppercase tracking-[2px] inline-block px-6 py-3 border transition-all duration-150 hover:-translate-y-[2px] ${
                     tier.inverted
                       ? 'border-white text-white hover:bg-white hover:text-ink'
                       : 'border-ink text-ink hover:bg-ink hover:text-white'
                   }`}
                 >
-                  {tier.name === 'Enterprise' ? 'Contact us' : 'Get started'}
+                  {tier.cta}
                 </a>
               </motion.div>
             ))}
@@ -521,7 +527,7 @@ export default function LandingPage() {
             className="flex gap-0 max-w-lg"
             onSubmit={(e) => {
               e.preventDefault()
-              if (email) window.location.href = '/dashboard'
+              if (email) window.location.href = '/signup'
             }}
           >
             <input
