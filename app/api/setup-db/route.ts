@@ -15,17 +15,37 @@ export async function POST(req: NextRequest) {
   // Use Supabase's postgres-meta API (accessible from within their network)
   // Or use the direct pg connection from Vercel's serverless function
   const pg = require('pg')
-  const dbHost = supabaseUrl.replace('https://', '').replace('.supabase.co', '')
+  const ref = supabaseUrl.replace('https://', '').replace('.supabase.co', '')
   
-  const pool = new pg.Pool({
-    host: `db.${dbHost}.supabase.co`,
-    port: 5432,
-    database: 'postgres',
-    user: 'postgres',
-    password: process.env.SUPABASE_DB_PASSWORD || serviceKey,
-    ssl: { rejectUnauthorized: false },
-    connectionTimeoutMillis: 10000,
-  })
+  // Try multiple connection approaches
+  const configs = [
+    // Supavisor transaction pooler
+    { host: `aws-0-ap-southeast-1.pooler.supabase.com`, port: 6543, user: `postgres.${ref}`, password: process.env.SUPABASE_DB_PASSWORD || serviceKey },
+    // Direct connection
+    { host: `db.${ref}.supabase.co`, port: 5432, user: 'postgres', password: process.env.SUPABASE_DB_PASSWORD || serviceKey },
+    // Alternative pooler regions
+    { host: `aws-0-us-east-1.pooler.supabase.com`, port: 6543, user: `postgres.${ref}`, password: process.env.SUPABASE_DB_PASSWORD || serviceKey },
+  ]
+
+  let pool: InstanceType<typeof pg.Pool> | null = null
+  let connError = ''
+
+  for (const cfg of configs) {
+    try {
+      const p = new pg.Pool({ ...cfg, database: 'postgres', ssl: { rejectUnauthorized: false }, connectionTimeoutMillis: 8000 })
+      const c = await p.connect()
+      await c.query('SELECT 1')
+      c.release()
+      pool = p
+      break
+    } catch (e: unknown) {
+      connError += `${cfg.host}:${cfg.port} - ${e instanceof Error ? e.message : String(e)}; `
+    }
+  }
+
+  if (!pool) {
+    return NextResponse.json({ error: `Could not connect to database. Tried: ${connError}` }, { status: 500 })
+  }
 
   const results: string[] = []
 
