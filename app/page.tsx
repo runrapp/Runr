@@ -147,6 +147,7 @@ export default function LandingPage() {
           <div className="hidden md:flex items-center gap-8">
             <a href="#features" className="font-mono text-xs uppercase tracking-[2px] text-muted hover:text-ink transition-colors duration-150">Features</a>
             <a href="#pricing" className="font-mono text-xs uppercase tracking-[2px] text-muted hover:text-ink transition-colors duration-150">Pricing</a>
+            <a href="#faq" className="font-mono text-xs uppercase tracking-[2px] text-muted hover:text-ink transition-colors duration-150">FAQ</a>
             <a href="/dashboard" className="font-mono text-xs uppercase tracking-[2px] bg-ink text-white px-4 py-2 hover:-translate-y-[2px] transition-transform duration-150">Dashboard</a>
           </div>
 
@@ -171,6 +172,7 @@ export default function LandingPage() {
           >
             <a href="#features" onClick={() => setMenuOpen(false)} className="block font-mono text-xs uppercase tracking-[2px] text-muted hover:text-ink py-2">Features</a>
             <a href="#pricing" onClick={() => setMenuOpen(false)} className="block font-mono text-xs uppercase tracking-[2px] text-muted hover:text-ink py-2">Pricing</a>
+            <a href="#faq" onClick={() => setMenuOpen(false)} className="block font-mono text-xs uppercase tracking-[2px] text-muted hover:text-ink py-2">FAQ</a>
             <a href="/dashboard" className="block font-mono text-xs uppercase tracking-[2px] bg-ink text-white px-4 py-2 text-center">Dashboard</a>
           </motion.div>
         )}
@@ -352,7 +354,26 @@ export default function LandingPage() {
         </div>
       </Section>
 
-      {/* ═══ SECTION 6: Footer CTA ═══ */}
+      {/* ═══ SECTION 6: FAQ ═══ */}
+      <Section className="py-16 sm:py-24 px-4 sm:px-6">
+        <div className="max-w-[720px] mx-auto" id="faq">
+          <motion.p variants={fadeUp} custom={0} className="font-mono text-[11px] uppercase tracking-[3px] text-muted mb-4 text-center">FAQ</motion.p>
+          <motion.h2 variants={fadeUp} custom={1} className="font-display text-[clamp(32px,6vw,56px)] leading-[0.95] tracking-display text-ink mb-10 sm:mb-14 text-center">
+            QUESTIONS?
+          </motion.h2>
+          <div className="divide-y divide-border">
+            <FAQItem q="What is Runr?" a="Runr is an AI agent that connects to your email, calendar, Telegram, Discord, and the web. You give it commands in natural language — it executes them autonomously." delay={2} />
+            <FAQItem q="How is this different from ChatGPT?" a="ChatGPT talks. Runr acts. It doesn't just generate text — it actually sends emails, creates calendar events, posts to Discord, and browses the web on your behalf." delay={3} />
+            <FAQItem q="Do I need technical knowledge?" a="Zero. If you can type a message in Telegram or Discord, you can use Runr. No code, no configuration beyond connecting your accounts." delay={4} />
+            <FAQItem q="What are skills?" a="Skills are predefined capabilities your agent can use — like 'summarize emails', 'schedule meeting', or 'research topic'. You can also create custom skills on the Pro plan." delay={5} />
+            <FAQItem q="Is my data private?" a="Yes. We only access the services you explicitly connect. Your credentials are encrypted, and we never store email content or messages beyond what's needed for task execution." delay={6} />
+            <FAQItem q="Can I cancel anytime?" a="Absolutely. Cancel your subscription anytime from the billing page. No contracts, no hidden fees." delay={7} />
+            <FAQItem q="What integrations are supported?" a="Gmail, Google Calendar, Telegram, and Discord are live now. We're adding Slack, Notion, Linear, and more. Custom integrations available on the Custom plan." delay={8} />
+          </div>
+        </div>
+      </Section>
+
+      {/* ═══ SECTION 7: Footer CTA ═══ */}
       <section className="py-20 sm:py-32 px-4 sm:px-6">
         <div className="max-w-[1200px] mx-auto">
           <motion.h2
@@ -388,17 +409,89 @@ export default function LandingPage() {
       </section>
 
       {/* ─── Footer ─── */}
-      <footer className="border-t border-border py-6 sm:py-8 px-4 sm:px-6">
-        <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span className="font-display text-lg tracking-display text-ink">RUNR</span>
-          <div className="flex gap-6">
-            <a href="/skill.md" className="font-mono text-[11px] uppercase tracking-[2px] text-muted hover:text-ink transition-colors duration-150">skill.md</a>
-            <a href="/dashboard" className="font-mono text-[11px] uppercase tracking-[2px] text-muted hover:text-ink transition-colors duration-150">Dashboard</a>
+      <footer className="border-t border-border bg-surface">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+          {/* Top: logo + columns */}
+          <div className="py-12 sm:py-16 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-8">
+            {/* Logo */}
+            <div className="col-span-2 sm:col-span-4 lg:col-span-1 mb-4 lg:mb-0">
+              <a href="/" className="flex items-center gap-2">
+                <img src="/logo.png" alt="Runr" className="h-6 w-6" />
+                <span className="font-logo text-2xl tracking-tight text-ink">RUNR</span>
+              </a>
+              <p className="font-mono text-xs text-muted mt-3 max-w-[200px]">Your AI agent. Always on.</p>
+            </div>
+
+            {/* Product */}
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-[3px] text-ink mb-4">Product</p>
+              <ul className="space-y-2.5">
+                <li><a href="#features" className="font-mono text-sm text-muted hover:text-ink transition-colors">Features</a></li>
+                <li><a href="#pricing" className="font-mono text-sm text-muted hover:text-ink transition-colors">Pricing</a></li>
+                <li><a href="#how-it-works" className="font-mono text-sm text-muted hover:text-ink transition-colors">How It Works</a></li>
+                <li><a href="/skill.md" className="font-mono text-sm text-muted hover:text-ink transition-colors">skill.md</a></li>
+              </ul>
+            </div>
+
+            {/* Resources */}
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-[3px] text-ink mb-4">Resources</p>
+              <ul className="space-y-2.5">
+                <li><a href="#faq" className="font-mono text-sm text-muted hover:text-ink transition-colors">FAQ</a></li>
+                <li><a href="/dashboard" className="font-mono text-sm text-muted hover:text-ink transition-colors">Dashboard</a></li>
+                <li><a href="/login" className="font-mono text-sm text-muted hover:text-ink transition-colors">Sign In</a></li>
+              </ul>
+            </div>
+
+            {/* Company */}
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-[3px] text-ink mb-4">Company</p>
+              <ul className="space-y-2.5">
+                <li><a href="mailto:runrapp69@gmail.com" className="font-mono text-sm text-muted hover:text-ink transition-colors">Contact</a></li>
+                <li><a href="/privacy" className="font-mono text-sm text-muted hover:text-ink transition-colors">Privacy</a></li>
+                <li><a href="/terms" className="font-mono text-sm text-muted hover:text-ink transition-colors">Terms</a></li>
+              </ul>
+            </div>
           </div>
-          <span className="font-mono text-[11px] text-muted">&copy; {new Date().getFullYear()} Runr</span>
+
+          {/* Bottom bar */}
+          <div className="border-t border-border py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <span className="font-mono text-[11px] text-muted">&copy; {new Date().getFullYear()} Runr. All rights reserved.</span>
+            <div className="flex gap-4">
+              <a href="mailto:runrapp69@gmail.com" className="text-muted hover:text-ink transition-colors" aria-label="Email">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="M2 6l10 7 10-7" />
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
       </footer>
     </main>
+  )
+}
+
+/* ─── FAQ Accordion Item ─── */
+function FAQItem({ q, a, delay }: { q: string; a: string; delay: number }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <motion.div variants={fadeUp} custom={delay}>
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between py-5 sm:py-6 text-left group"
+      >
+        <span className="font-mono text-sm sm:text-base text-ink pr-4">{q}</span>
+        <span className={`text-muted flex-shrink-0 transition-transform duration-200 ${open ? 'rotate-45' : ''}`}>
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+            <path d="M9 3v12M3 9h12" />
+          </svg>
+        </span>
+      </button>
+      <div className={`overflow-hidden transition-all duration-300 ease-out ${open ? 'max-h-60 pb-5 sm:pb-6' : 'max-h-0'}`}>
+        <p className="font-mono text-sm text-muted leading-relaxed pr-8">{a}</p>
+      </div>
+    </motion.div>
   )
 }
 
