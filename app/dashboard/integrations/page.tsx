@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { Suspense, useState, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { useSearchParams } from 'next/navigation'
 
@@ -54,6 +54,14 @@ interface ConnectModal {
 }
 
 export default function IntegrationsPage() {
+  return (
+    <Suspense fallback={<div className="font-mono text-sm text-muted">Loading integrations...</div>}>
+      <IntegrationsContent />
+    </Suspense>
+  )
+}
+
+function IntegrationsContent() {
   const searchParams = useSearchParams()
   const [connected, setConnected] = useState({
     gmail: false,
